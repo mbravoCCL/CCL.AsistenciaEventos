@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+      <div class="col" *ngFor="let card of cards; let i = index" [ngClass]="{'mt-3': i >= 5}">
+        <div class="cardccl">
+          <div class="row g-0">
+            <div class="col-md-3 text-center">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/768px-Codigo_QR.svg.png" >
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <div class="infoName">
+                  <fa-icon [icon]="faUser" class="icon"></fa-icon>
+                  <p>Marco Antonio Bravo Vega</p>
+                </div>
+                <div class="infoCompany">
+                  <fa-icon [icon]="faBuilding" class="icon"></fa-icon>
+                  <p class="text-muted">Cámara de Comercio de Lima</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

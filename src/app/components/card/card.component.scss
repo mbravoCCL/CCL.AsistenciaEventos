@@ -1,0 +1,43 @@
+p{
+    margin: 0;
+}
+
+.cardccl{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+    background-color: white;   
+    border-left: #0056b3 7px solid;
+    max-width: 1400px;
+}
+
+.cardccl img {
+    max-width: 100%;
+    height: auto; 
+    max-height: 200px;
+  }
+
+.infoName{
+    display: flex;
+    margin-left: 20px;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #0056b3;
+    padding: 40px 0px 20px 0 ;
+}
+
+
+.infoName p{
+    margin-left: 8px;
+}
+
+
+.infoCompany{
+    display: flex;
+    margin-left: 20px;
+    font-size: 1.3rem;
+    color: #b3b3b3;
+    padding: 0 0 40px;
+}
+
+.infoCompany p{
+    margin-left: 8px;
+}
