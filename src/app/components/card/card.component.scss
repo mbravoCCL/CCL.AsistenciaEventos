@@ -3,41 +3,58 @@ p{
 }
 
 .cardccl{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+    box-shadow: rgba(0, 0, 0, 0.35)  0px 0px 8px; 
     background-color: white;   
-    border-left: #0056b3 7px solid;
-    max-width: 1400px;
+    border-left: #0056b3 10px solid;
+    border-radius: 20px;
+    max-width: 100%;
+    margin: 5px 20px 20px 5px;
+
 }
 
-.cardccl img {
-    max-width: 100%;
-    height: auto; 
-    max-height: 200px;
-  }
+
 
 .infoName{
     display: flex;
-    margin-left: 20px;
     font-size: 1.7rem;
     font-weight: 600;
     color: #0056b3;
-    padding: 40px 0px 20px 0 ;
+    margin-left: 30px;
 }
 
 
-.infoName p{
-    margin-left: 8px;
-}
 
 
 .infoCompany{
     display: flex;
-    margin-left: 20px;
-    font-size: 1.3rem;
+    font-size: 1.7rem;
+    font-weight: 300;
     color: #b3b3b3;
     padding: 0 0 40px;
+    margin-left: 30px;
 }
 
-.infoCompany p{
-    margin-left: 8px;
+.infoCargo{
+    display: flex;
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: #b3b3b3;
+    margin-left: 30px;
+}
+
+.infoCompany p, .infoCargo p{
+    margin-left: 10px;
+}
+
+.cardccl-body{
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.cardccl-body-sup{
+    display: flex;
+    align-items: center;
+    
 }

@@ -1,18 +1,22 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBriefcase , faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { QRCodeModule } from 'angularx-qrcode';
+import { FichaInscripcionAsistentesResponse } from '../../interface/FichaInscripcionAsistentesResponse';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [FontAwesomeModule,NgClass,CommonModule],
+  imports: [FontAwesomeModule,NgClass,CommonModule,QRCodeModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
   faUser = faUser;
   faBuilding = faBuilding;
-  cards = Array(12).fill(null);
+ faBriefcase = faBriefcase;
+  vCardDownloadUrl: string = 'https://personal.camaralima.org.pe/tarjetavirtual.php?CCL=JHONATAN-MEDINA-GERENCIA-DE-INNOVACION-Y-TECNOLOGIAS-DE-LA-INFORMACION&DNI=46519359&l=e';
+  @Input() detalleFicha!: FichaInscripcionAsistentesResponse[];
+  
 }

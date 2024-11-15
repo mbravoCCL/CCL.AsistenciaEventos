@@ -1,23 +1,30 @@
 <div class="container-fluid">
-    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-      <div class="col" *ngFor="let card of cards; let i = index" [ngClass]="{'mt-3': i >= 5}">
+    <div class="row">
+      <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 mt-3" *ngFor="let item of detalleFicha; let i = index">
         <div class="cardccl">
-          <div class="row g-0">
-            <div class="col-md-3 text-center">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/768px-Codigo_QR.svg.png" >
-            </div>
-            <div class="col-md-9">
-              <div class="card-body">
-                <div class="infoName">
-                  <fa-icon [icon]="faUser" class="icon"></fa-icon>
-                  <p>Marco Antonio Bravo Vega</p>
-                </div>
-                <div class="infoCompany">
-                  <fa-icon [icon]="faBuilding" class="icon"></fa-icon>
-                  <p class="text-muted">Cámara de Comercio de Lima</p>
+          <div class="cardccl-body">
+            <div class="cardccl-body-sup">
+              <!-- QR Code y Nombre en una fila -->
+              <div class="">
+                <div class="qrcode-container">
+                  <qrcode [qrdata]="vCardDownloadUrl" [errorCorrectionLevel]="'M'"></qrcode>
                 </div>
               </div>
+              <div class="">
+                <div class="infoName">
+                  <p class="mb-0">{{ item.fullname | uppercase }}</p>
+                </div>
+                <div class="infoCargo d-flex mb-2">
+                    <fa-icon [icon]="faBriefcase" class="icon me-2"></fa-icon>
+                    <p class="text-muted mb-0">PROGRAMADOR FULL STACK</p>
+                  </div>
+                  <div class="infoCompany d-flex">
+                    <fa-icon [icon]="faBuilding" class="icon me-2"></fa-icon>
+                    <p class="text-muted mb-0">{{ item.empresa | uppercase }}</p>
+                  </div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
