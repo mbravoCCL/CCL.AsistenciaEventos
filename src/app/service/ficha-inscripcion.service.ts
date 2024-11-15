@@ -17,6 +17,6 @@ export class FichaInscripcionService {
   constructor() {}
 
   getlistarAsistentes(id: string): Observable<FichaInscripcionAsistentesResponse[]> {
-    return this.http.get<FichaInscripcionAsistentesResponse[]>(`${urlApi}/FichaInscripcion/listarAsistentes/${id}`);
+    return this.http.get<FichaInscripcionAsistentesResponse[]>(`https://localhost:7024/api/FichaInscripcion/listarAsistentes/${id}`);
   }
 }
