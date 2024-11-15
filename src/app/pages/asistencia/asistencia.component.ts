@@ -28,15 +28,32 @@ export default class AsistenciaComponent implements OnInit {
   listarAsistentes(){
     const id = this._route.snapshot.paramMap.get('id');
 
-    this._fichaInscripcionService.getlistarAsistentes(id ?? "")
-      .subscribe({
-        next: (data: FichaInscripcionAsistentesResponse[]) => {
-          this.detalleFicha = data;
-         },
-        error: (err) => {
-
-        }
-      });
+    this.detalleFicha = [
+      {
+        "fullname": "Andrea Hualtibamba Almiron",
+        "empresa": "RESSIDIR INVERSIONES INMOBILIARIAS S.A.C."
+      },
+      {
+        "fullname": "Melissa Damian Moreno",
+        "empresa": "RESSIDIR INVERSIONES INMOBILIARIAS S.A.C."
+      },
+      {
+        "fullname": "MANUEL OMAR ORTIZ HURTADO",
+        "empresa": "MITOLOGIA CAFE E.I.R.L."
+      },
+      {
+        "fullname": "Yenzo Adhir Gomez Acosta",
+        "empresa": "AURUS CONSTRUCTORA E INMOBILIARIA S.A.C."
+      },
+      {
+        "fullname": "JOSÉ LUIS JR SAMAME GONZALES",
+        "empresa": "OL & AS CONTRATISTAS GENERALES S.R.L."
+      },
+      {
+        "fullname": "JORDAN LOPEZ SANDOVAL",
+        "empresa": "GENERAL MACHINING S.A.C"
+      }
+    ]
   }
 
  }
