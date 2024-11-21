@@ -16,7 +16,9 @@ export class CardComponent {
   faUser = faUser;
   faBuilding = faBuilding;
  faBriefcase = faBriefcase;
-  vCardDownloadUrl: string = 'https://personal.camaralima.org.pe/tarjetavirtual.php?CCL=JHONATAN-MEDINA-GERENCIA-DE-INNOVACION-Y-TECNOLOGIAS-DE-LA-INFORMACION&DNI=46519359&l=e';
   @Input() detalleFicha!: FichaInscripcionAsistentesResponse[];
+
   
 }
+
+

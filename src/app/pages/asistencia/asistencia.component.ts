@@ -1,59 +1,100 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CardComponent } from '../../components/card/card.component';
 import { FichaInscripcionService } from '../../service/ficha-inscripcion.service';
 import { ActivatedRoute } from '@angular/router';
 import { FichaInscripcionAsistentesResponse } from '../../interface/FichaInscripcionAsistentesResponse';
+import { BehaviorSubject, distinctUntilChanged, interval, Observable, startWith, Subscription, switchMap, tap, timer } from 'rxjs';
+import { EventoService } from '../../service/evento.service';
+import { EventoResponse } from '../../interface/EventoResponse';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-asistencia',
   standalone: true,
-  imports: [NavbarComponent,CardComponent],
+  imports: [NavbarComponent,CardComponent, FooterComponent],
   templateUrl: './asistencia.component.html',
   styleUrl: './asistencia.component.scss'
 })
-export default class AsistenciaComponent implements OnInit {
+export default class AsistenciaComponent implements OnInit, OnDestroy {
+  private subscription: Subscription | null = null;
+  public currentPage = 1;
+  public pageSize = 6;
+  public lastTotalResultados = 0;
 
   _fichaInscripcionService = inject(FichaInscripcionService);
+  _eventoService = inject(EventoService);
   _route = inject(ActivatedRoute);
-  detalleFicha! : FichaInscripcionAsistentesResponse[];
+  detalleFicha!: FichaInscripcionAsistentesResponse[];
+  idEvento: string = '';
+  evento!: EventoResponse;
 
-  constructor(){
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.listarAsistentes();
+    this.idEvento = this._route.snapshot.paramMap.get('id') ?? '';
+    this.ObtenerEvento();
+    this.startPaginationFlow();
   }
 
-  listarAsistentes(){
-    const id = this._route.snapshot.paramMap.get('id');
+  private startPaginationFlow(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.subscription = new Observable<void>((observer) => {
+      this.listarAsistentes(); 
+      observer.next(); 
+    }).pipe(
+      switchMap(() => interval(30000))
+    ).subscribe(() => {
+      this.listarAsistentes();
+    });
+  }
 
-    this.detalleFicha = [
-      {
-        "fullname": "Andrea Hualtibamba Almiron",
-        "empresa": "RESSIDIR INVERSIONES INMOBILIARIAS S.A.C."
+  listarAsistentes(): void {
+    this._fichaInscripcionService
+      .getlistarAsistentes(this.idEvento, this.currentPage, this.pageSize)
+      .subscribe({
+        next: (data: FichaInscripcionAsistentesResponse[]) => {
+          
+          if (data.length === 0) {
+            this.currentPage = 1;
+            this.listarAsistentes()
+          } else {
+            this.detalleFicha = data;
+            const total = data[0].totalResultados || 0;
+
+            if (total !== this.lastTotalResultados) {
+              this.currentPage = 1; 
+              this.listarAsistentes();
+            } else {
+              this.currentPage++;
+            }
+
+            this.lastTotalResultados = total;
+          }
+        },
+        error: (err) => {
+          console.error('Error al listar asistentes', err);
+        },
+      });
+  }
+
+  ObtenerEvento(): void {
+    this._eventoService.obtener(this.idEvento).subscribe({
+      next: (data: EventoResponse) => {
+        this.evento = data;
       },
-      {
-        "fullname": "Melissa Damian Moreno",
-        "empresa": "RESSIDIR INVERSIONES INMOBILIARIAS S.A.C."
-      },
-      {
-        "fullname": "MANUEL OMAR ORTIZ HURTADO",
-        "empresa": "MITOLOGIA CAFE E.I.R.L."
-      },
-      {
-        "fullname": "Yenzo Adhir Gomez Acosta",
-        "empresa": "AURUS CONSTRUCTORA E INMOBILIARIA S.A.C."
-      },
-      {
-        "fullname": "JOSÉ LUIS JR SAMAME GONZALES",
-        "empresa": "OL & AS CONTRATISTAS GENERALES S.R.L."
-      },
-      {
-        "fullname": "JORDAN LOPEZ SANDOVAL",
-        "empresa": "GENERAL MACHINING S.A.C"
+      error: (err) => {
+        console.error('Error al obtener evento', err);
       }
-    ]
+    });
   }
 
- }
+  
+
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+}

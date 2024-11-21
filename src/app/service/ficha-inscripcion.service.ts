@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FichaInscripcionAsistentesResponse } from '../interface/FichaInscripcionAsistentesResponse';
 import { HttpClient } from '@angular/common/http';
 
@@ -16,7 +16,19 @@ export class FichaInscripcionService {
 
   constructor() {}
 
-  getlistarAsistentes(id: string): Observable<FichaInscripcionAsistentesResponse[]> {
-    return this.http.get<FichaInscripcionAsistentesResponse[]>(`${urlApi}/FichaInscripcion/listarAsistentes/${id}`);
-  }
+  getlistarAsistentes(idEvento: string, pageNumber: number, pageSize:number): Observable<FichaInscripcionAsistentesResponse[]> {
+    return this.http.get<FichaInscripcionAsistentesResponse[]>
+    (`${urlApi}/FichaInscripcion/listarAsistentesPaginadoPorEvento/${idEvento}/${pageNumber}/${pageSize}`)
+    .pipe(
+      map((response: FichaInscripcionAsistentesResponse[]) => {
+        return response.map(item => {
+        
+          return {
+            ...item,
+            urlVcard: `${urlApi}/Contact/downloadVcard/${item.new_Participante}/${idEvento}`
+          };
+        });
+      })
+    );
+}
 }

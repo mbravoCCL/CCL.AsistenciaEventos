@@ -1,21 +1,23 @@
 .header {
     background: linear-gradient(90deg, #0056b3, #1c92d2);
     color: #ffffff;
-    padding: 40px 20px;
+    padding: 30px 30px;
     display: flex;
+    align-items: center;
+ 
   }
   .header img.logo {
-    width: 300px;
+    width: 400px;
     height: auto;
-    margin-bottom: 20px;
   }
+
   .header .welcome {
     font-size: 1.8rem;
     font-weight: 400;
     margin-bottom: 20px;
   }
   .header .title {
-    font-size: 1.6rem;
+    font-size: 3.0rem;
     letter-spacing: 0.5px;
     margin-top: 0;
     line-height: 1.2;

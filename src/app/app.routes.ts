@@ -8,7 +8,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo : 'detalle/0',
+        redirectTo : 'detalle/3D05941F-F448-ED11-84E9-00155D00F816',
         pathMatch: 'full'
     }
 ];
