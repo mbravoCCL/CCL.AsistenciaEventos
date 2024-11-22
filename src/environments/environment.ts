@@ -1,4 +1,5 @@
 export const environment = {
     production: false,               
-    apiUrl: 'https://apicrm.camaralima.org.pe/api',  
+     apiUrl: 'https://appshub.camaralima.org.pe/CCL.API.CRM/api'
+
 };

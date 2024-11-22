@@ -8,6 +8,8 @@ import { BehaviorSubject, distinctUntilChanged, interval, Observable, startWith,
 import { EventoService } from '../../service/evento.service';
 import { EventoResponse } from '../../interface/EventoResponse';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../components/dialog/dialog.component';
 
 @Component({
   selector: 'app-asistencia',
@@ -28,13 +30,24 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
   detalleFicha!: FichaInscripcionAsistentesResponse[];
   idEvento: string = '';
   evento!: EventoResponse;
+  nuevos:boolean = false;
+  private audio!: HTMLAudioElement;
+  readonly dialog = inject(MatDialog);
+  autorizoSonido :boolean = true;
+  previousPage: number = 0;
+  constructor(){
+    this.audio = new Audio('sound.mp3');
+  }
 
-  constructor() {}
+  
+  playSound(): void {
+    this.audio.play(); 
+  }
 
   ngOnInit(): void {
     this.idEvento = this._route.snapshot.paramMap.get('id') ?? '';
-    this.ObtenerEvento();
-    this.startPaginationFlow();
+    this.openDialog();
+
   }
 
   private startPaginationFlow(): void {
@@ -45,27 +58,41 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
       this.listarAsistentes(); 
       observer.next(); 
     }).pipe(
-      switchMap(() => interval(30000))
+      switchMap(() => interval(10000))
     ).subscribe(() => {
-      this.listarAsistentes();
+      if(this.previousPage>1){
+        this.currentPage = this.previousPage;
+        this.previousPage = 0;
+        this.listarAsistentes();
+      }else{
+        this.listarAsistentes();
+      }
+    
     });
   }
 
   listarAsistentes(): void {
+
     this._fichaInscripcionService
       .getlistarAsistentes(this.idEvento, this.currentPage, this.pageSize)
       .subscribe({
         next: (data: FichaInscripcionAsistentesResponse[]) => {
-          
+       
           if (data.length === 0) {
             this.currentPage = 1;
             this.listarAsistentes()
           } else {
+            
             this.detalleFicha = data;
             const total = data[0].totalResultados || 0;
 
             if (total !== this.lastTotalResultados) {
-              this.currentPage = 1; 
+              this.previousPage = this.currentPage;
+              this.currentPage = 1;
+              if(this.autorizoSonido){
+                this.playSound() 
+              }
+              
               this.listarAsistentes();
             } else {
               this.currentPage++;
@@ -91,7 +118,24 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
     });
   }
 
-  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    
+      if (result) {
+        this.autorizoSonido = true;
+        this.ObtenerEvento();
+        this.startPaginationFlow();
+        this.playSound();
+      } else {
+        this.autorizoSonido = false;
+        this.ObtenerEvento();
+        this.startPaginationFlow();
+      }
+    });
+  }
 
 
   ngOnDestroy(): void {

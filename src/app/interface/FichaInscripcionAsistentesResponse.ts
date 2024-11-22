@@ -5,4 +5,5 @@ export interface FichaInscripcionAsistentesResponse {
     new_Participante: string;
     totalResultados: number;
     urlVcard: string;
+    efecto:string;
   }

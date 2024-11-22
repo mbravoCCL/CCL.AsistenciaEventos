@@ -1,8 +1,8 @@
-<div class="container-fluid mt-3">
+<div class="container-fluid ">
     <div class="row">
         @for (item of detalleFicha; track item) {
         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12 mt-3 animate__animated animate__fadeInLeft">
-            <div class="cardccl">
+            <div class="cardccl m-1">
                 <div class="cardccl-body">
                     <div class="cardccl-body-sup">
                         <div class="qrcode-container">
@@ -11,6 +11,7 @@
                               [errorCorrectionLevel]="'M'"
                               [imageSrc]="'logocclcircular.png'"
                               [colorDark]="'#0056b3'"
+                                [width]="200"
                              ></qrcode>
                         </div>
                         <div class="cardccl-body-inf">
@@ -20,16 +21,17 @@
                             </div>
                             @if(item.cargoempresa){
                                 <div class="infoCargo mt-2">
-                                    <fa-icon [icon]="faBriefcase" class="icon me-2"></fa-icon>
-                                    <p class="text-muted mb-0">{{ item.cargoempresa | uppercase }}</p>
+                                    <fa-icon [icon]="faBriefcase" class="icon me-3"></fa-icon>
+                                    <p class="mb-0">{{item.cargoempresa | uppercase }}</p>
                                 </div>
                             }
                             @if(item.empresa){
                                 <div class="infoCompany">
                                     <fa-icon [icon]="faBuilding" class="icon me-3"></fa-icon>
-                                    <p class="text-muted mb-0">{{ item.empresa | uppercase }}</p>
+                                    <p class="mb-0">{{item.empresa | uppercase }}</p>
                                 </div>
                             }
+                            
                         </div>
                     </div>
 

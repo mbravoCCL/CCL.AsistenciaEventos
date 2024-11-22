@@ -15,7 +15,7 @@ p{
 
 .infoName{
     display: flex;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #0056b3;
     padding-right: 20PX ;
@@ -26,25 +26,23 @@ p{
 
 .infoCompany{
     display: flex;
-    font-size: 2.0rem;
-    font-weight: 300;
-    color: #b3b3b3;
+    font-size: 1.5rem;
+    font-weight: 600;
+   
 }
 
 .infoCompany p{
-    margin-left: 5px;
+    margin-left: 4px;
 }
 
 .infoCargo{
     display: flex;
-    font-size: 2.0rem;
-    font-weight: 300;
-    color: #b3b3b3;
+    font-size: 1.5rem;
+    font-weight: 600;
+   
 }
 
-.infoCompany p{
-    margin-left: 5px;
-}
+
 
 
 .cardccl-body{

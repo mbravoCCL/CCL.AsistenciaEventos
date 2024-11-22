@@ -17,8 +17,8 @@ export class CardComponent {
   faBuilding = faBuilding;
  faBriefcase = faBriefcase;
   @Input() detalleFicha!: FichaInscripcionAsistentesResponse[];
-
   
+
 }
 
 
