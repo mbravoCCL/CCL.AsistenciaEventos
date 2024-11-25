@@ -1,6 +1,11 @@
 <footer class="footer">
     <div class="footer-container">
-      <p>Página {{currentPage-1}} de {{totalPages}}, Total Asistentes {{lastTotalResultados}}</p>
+      <p>
+        Página 
+        {{ (currentPage - 1) > totalPages ? 1 : currentPage - 1 }} 
+        de {{ totalPages }}, 
+        Total Asistentes {{ lastTotalResultados }}
+      </p>
     </div>
   </footer>
   

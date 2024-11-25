@@ -58,7 +58,7 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
       this.listarAsistentes(); 
       observer.next(); 
     }).pipe(
-      switchMap(() => interval(10000))
+      switchMap(() => interval(90000))
     ).subscribe(() => {
       if(this.previousPage>1){
         this.currentPage = this.previousPage;
@@ -77,7 +77,7 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
       .getlistarAsistentes(this.idEvento, this.currentPage, this.pageSize)
       .subscribe({
         next: (data: FichaInscripcionAsistentesResponse[]) => {
-       
+          
           if (data.length === 0) {
             this.currentPage = 1;
             this.listarAsistentes()
