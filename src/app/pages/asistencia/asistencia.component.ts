@@ -35,6 +35,7 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   autorizoSonido :boolean = true;
   previousPage: number = 0;
+
   constructor(){
     this.audio = new Audio('sound.mp3');
   }
@@ -58,16 +59,16 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
       this.listarAsistentes(); 
       observer.next(); 
     }).pipe(
-      switchMap(() => interval(90000))
+      switchMap(() => interval(60000))
     ).subscribe(() => {
+     
       if(this.previousPage>1){
         this.currentPage = this.previousPage;
         this.previousPage = 0;
         this.listarAsistentes();
       }else{
-        this.listarAsistentes();
+        this.listarAsistentes();    
       }
-    
     });
   }
 
@@ -78,6 +79,7 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: FichaInscripcionAsistentesResponse[]) => {
           
+
           if (data.length === 0) {
             this.currentPage = 1;
             this.listarAsistentes()
@@ -92,8 +94,9 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
               if(this.autorizoSonido){
                 this.playSound() 
               }
-              
+          
               this.listarAsistentes();
+
             } else {
               this.currentPage++;
             }
