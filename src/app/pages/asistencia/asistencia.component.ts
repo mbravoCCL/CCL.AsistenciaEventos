@@ -82,7 +82,7 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
 
           if (data.length === 0) {
             this.currentPage = 1;
-            this.listarAsistentes()
+            //this.listarAsistentes();
           } else {
             
             this.detalleFicha = data;
