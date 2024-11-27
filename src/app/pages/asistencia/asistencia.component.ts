@@ -59,7 +59,7 @@ export default class AsistenciaComponent implements OnInit, OnDestroy {
       this.listarAsistentes(); 
       observer.next(); 
     }).pipe(
-      switchMap(() => interval(60000))
+      switchMap(() => interval(30000))
     ).subscribe(() => {
      
       if(this.previousPage>1){
