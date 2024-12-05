@@ -6,32 +6,34 @@
                 <div class="cardccl-body">
                     <div class="cardccl-body-sup">
                         <div class="qrcode-container">
-                            <qrcode
-                             [qrdata]="item.urlVcard"
-                              [errorCorrectionLevel]="'M'"
-                              [imageSrc]="'logocclcircular.png'"
-                              [colorDark]="'#0056b3'"
-                                [width]="150"
-                             ></qrcode>
+                            <qrcode [qrdata]="item.urlVcard" [errorCorrectionLevel]="'M'"
+                                [imageSrc]="'logocclcircular.png'" [colorDark]="'#0056b3'" [width]="150"></qrcode>
+
                         </div>
                         <div class="cardccl-body-inf">
+                            @if(item.empresa){
+                            <div class="infoCompany mb-2">
+                                <p class="mb-0">{{item.empresa | uppercase }}</p>
+                                @if(item.new_logoruta){
+                                    <div class="logoCompany">
+                                        <img [src]="item.new_logoruta" />
+                                    </div>
+                                }
+                               
+                            </div>
+                            }
+
                             <div class="infoName">
                                 <fa-icon [icon]="faUser" class="icon me-3"></fa-icon>
                                 <p class="mb-0">{{ item.fullname | uppercase }}</p>
                             </div>
                             @if(item.cargoempresa){
-                                <div class="infoCargo mt-2">
-                                    <fa-icon [icon]="faBriefcase" class="icon me-3"></fa-icon>
-                                    <p class="mb-0">{{item.cargoempresa | uppercase }}</p>
-                                </div>
+                            <div class="infoCargo">
+                                <fa-icon [icon]="faBriefcase" class="icon me-3"></fa-icon>
+                                <p class="mb-0">{{item.cargoempresa | uppercase }}</p>
+                            </div>
                             }
-                            @if(item.empresa){
-                                <div class="infoCompany">
-                                    <fa-icon [icon]="faBuilding" class="icon me-3"></fa-icon>
-                                    <p class="mb-0">{{item.empresa | uppercase }}</p>
-                                </div>
-                            }
-                            
+
                         </div>
                     </div>
 

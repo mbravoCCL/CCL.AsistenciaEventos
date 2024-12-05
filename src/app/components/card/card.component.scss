@@ -28,7 +28,7 @@ p{
     display: flex;
     font-size: 1.5rem;
     font-weight: 600;
-   
+   justify-content: space-between;
 }
 
 .infoCompany p{
@@ -42,7 +42,10 @@ p{
    
 }
 
-
+.logoCompany {
+    max-height: 45px;
+     max-height: 90px;
+}
 
 
 .cardccl-body{
@@ -61,4 +64,5 @@ p{
 
 .cardccl-body-inf{
     margin: 15px;
+    flex-grow: 1;
 }
